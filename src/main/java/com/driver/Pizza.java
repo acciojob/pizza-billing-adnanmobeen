@@ -9,16 +9,18 @@ public class Pizza {
      boolean ischeeseadded;
      boolean istoppingsadded;
 
+     private boolean isTakeawayadded;
+
     public Pizza(Boolean isVeg){
         this.isVeg = isVeg;
         // your code goes here
         if(isVeg == true){
             this.price = 300;
-            this.bill="300";
+           // this.bill="300";
         }
         else {
             this.price = 400;
-            this.bill = "400";
+           // this.bill = "400";
         }
 
     }
@@ -30,10 +32,9 @@ public class Pizza {
     public void addExtraCheese(){
         // your code goes here
         if(!ischeeseadded) {
-            int b = Integer.parseInt(bill);
-            b = b + 80;
-            bill = Integer.toString(b);
+
             ischeeseadded = true;
+            price += 80;
             return;
         }
     }
@@ -41,13 +42,11 @@ public class Pizza {
     public void addExtraToppings(){
         // your code goes here
         if(!istoppingsadded) {
-            int b = Integer.parseInt(bill);
+            //int b = Integer.parseInt(bill);
             if (isVeg == true) {
-                b = b + 70;
-                bill = Integer.toString(b);
+                price += 70;
             } else {
-                b = b + 120;
-                bill = Integer.toString(b);
+                price += 120;
             }
             istoppingsadded = true;
         }
@@ -56,14 +55,31 @@ public class Pizza {
 
     public void addTakeaway(){
         // your code goes here
-        int b = Integer.parseInt(bill);
-        b = b + 20;
-        bill = Integer.toString(b);
-        return;
+        if(!isTakeawayadded){
+            isTakeawayadded = true;
+            price += 20;
+        }
     }
 
     public String getBill(){
         // your code goes here
+        int toppings;
+        if(isVeg){
+            toppings = 70;
+        }
+        else{
+            toppings = 120;
+        }
+        StringBuilder str = new StringBuilder("");
+        str.append("Base Price Of The Pizza: "+price+'\n');
+        if(ischeeseadded){
+            str.append("Extra Cheese Added: "+toppings+'\n');
+        }
+        if(isTakeawayadded){
+            str.append("Paperbag Added: "+20+'\n');
+        }
+        str.append("Total Price: "+price+'\n');
+        bill = str.toString();
         return this.bill;
     }
 }
